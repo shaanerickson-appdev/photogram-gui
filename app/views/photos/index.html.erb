@@ -1,0 +1,29 @@
+<h1>List of photos</h1>
+<form action="/add_photo">
+  <label for="image">Image</label>
+  <input id="image" type="text" placeholder="Enter a URL for the image..." name="photo_url">
+  <label for="caption">Caption</label>
+  <textarea id="caption" placeholder="Enter a caption..." name="caption"></textarea>
+  <label for="owner">Owner ID</label>
+  <input id="owner" type="text" placeholder="Enter an ID of a user" name="owner_id">
+  <button>Add photo</button>
+</form>
+<hr>
+<table border="1">
+  <tr>
+    <th>Image</th>
+    <th>Caption</th>
+    <th>Owner</th>
+    <th>Posted</th>
+    <th></th>
+  </tr>
+  <% Photo.all.order({ :created_at => :desc }).each do |photo| %>
+  <tr>
+    <td><img src="<%= photo.image %>"></td>
+    <td><%= photo.caption %></td>
+    <td><%= photo.poster.username %></td>
+    <td><%= photo.created_at %></td>
+    <td><a href="/photos/<%= photo.id %>">Show details</a></td>
+  </tr>
+  <% end %>
+</table>
